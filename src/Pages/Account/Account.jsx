@@ -6,8 +6,13 @@ import CloseIcon from '@mui/icons-material/Close';
 import './Account.css'
 
 const Account = () => {
-  const [displayName, setDisplayName] = useState('');
-  const [movies, setMovies] = useState([]);
+  const [displayName, setDisplayName] = useState(
+    localStorage.getItem('displayName') || ''
+  );
+  const [movies, setMovies] = useState(
+    JSON.parse(localStorage.getItem('favorites')) || []
+  );
+
   const { user, loading } = UserAuth();
 
   useEffect(() => {
@@ -16,8 +21,12 @@ const Account = () => {
     const ref = doc(db, 'users', user.email);
 
     const unsubscribe = onSnapshot(ref, (doc) => {
-      setDisplayName(doc.data()?.displayName);
-      setMovies(doc.data()?.Favorites ?? []);
+      const name = doc.data()?.displayName;
+      const favs = doc.data()?.Favorites ?? [];
+      setDisplayName(name);
+      setMovies(favs);
+      localStorage.setItem('displayName', name);
+      localStorage.setItem('favorites', JSON.stringify(favs));
     });
 
     return () => unsubscribe();
