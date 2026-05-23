@@ -5,16 +5,16 @@ import "./Header.css";
 import HamburgerMenu from './HamburgerMenu';
 
 const Header = () => {
-    const { user, logout } = UserAuth();
+    const { user, logout, loading } = UserAuth();
     const navigate = useNavigate();
-  
+
     const handleLogout = async () => {
-      try {
-        await logout();
-        navigate('/');
-      } catch (error) {
-        console.log(error);
-      }
+        try {
+            await logout();
+            navigate('/');
+        } catch (error) {
+            console.log(error);
+        }
     };
     const [activeButton, setActiveButton] = useState(null);
 
@@ -22,8 +22,10 @@ const Header = () => {
         setActiveButton(buttonId);
     };
 
+    if (loading) return null;
+
     return (
-        <span onClick={()=> window.scroll(0,0)} className='header'>
+        <span onClick={() => window.scroll(0, 0)} className='header'>
             <span className="header_title">
                 <Link to='/' onClick={() => handleButtonClick(1)}>
                     FilmStar
