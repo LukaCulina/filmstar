@@ -18,7 +18,7 @@ const Movies = () =>{
     
     const fetchMovies = async() => {
         const response = await fetch(
-            `https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate&page=${page}&with_genres=${genreforURL}`
+            `https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&with_watch_monetization_types=flatrate&page=${page}&with_genres=${genreforURL}`
         );
         const data = await response.json();
         console.log(data)
