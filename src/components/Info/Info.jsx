@@ -20,7 +20,6 @@ export default function InfoModal({ children, media_type, id, keyword }) {
   const [open, setOpen] = useState(false);
   const [content, setContent] = useState([]);
   const [video, setVideo] = useState();
-  const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [like, setLike] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -31,7 +30,6 @@ export default function InfoModal({ children, media_type, id, keyword }) {
       `https://api.themoviedb.org/3/${media_type}/${id}?api_key=${key}&language=en-US`
     )
     const data = await response.json();
-    console.log(data);
     setContent(data);
   };
 
@@ -43,10 +41,11 @@ export default function InfoModal({ children, media_type, id, keyword }) {
     setVideo(data.results[0]?.key);
   };
 
-  useEffect(() => {
+  const handleOpen = () => {
+    setOpen(true);
     fetchData();
     fetchVideo();
-  }, [])
+  };
 
   const style = {
     position: 'absolute',

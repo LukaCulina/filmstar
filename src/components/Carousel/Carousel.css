@@ -39,8 +39,8 @@
 }
 
 .skeleton_card {
-    width: 150px;
-    height: 225px;
+    width: 173px;
+    height: 260px;
     background: #1a1a1a;
     border-radius: 8px;
     animation: pulse 1.5s infinite;
