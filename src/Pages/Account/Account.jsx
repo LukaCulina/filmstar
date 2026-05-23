@@ -10,29 +10,29 @@ const Account = () => {
   const [movies, setMovies] = useState([]);
   const { user } = UserAuth();
 
-  const getDisplayName = onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
-    setDisplayName(doc.data()?.displayName);
-  });
-
-  const getMovies = onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
-    setMovies(doc.data()?.Favorites);
-  });
-
   useEffect(() => {
-    getDisplayName();
-    getMovies();
+    if (!user?.email) return;
+
+    const ref = doc(db, 'users', user.email);
+
+    const unsubscribe = onSnapshot(ref, (doc) => {
+      setDisplayName(doc.data()?.displayName);
+      setMovies(doc.data()?.Favorites ?? []);
+    });
+
+    return () => unsubscribe();
   }, [user?.email]);
 
   const movieRef = doc(db, 'users', `${user?.email}`)
   const deleteContent = async (ID) => {
-      try {
-        const result = movies.filter((item) => item.id !== ID)
-        await updateDoc(movieRef, {
-            Favorites: result
-        })
-      } catch (error) {
-          console.log(error)
-      }
+    try {
+      const result = movies.filter((item) => item.id !== ID)
+      await updateDoc(movieRef, {
+        Favorites: result
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -58,7 +58,7 @@ const Account = () => {
           ))}
         </div>
       </div>
-  </>
+    </>
   );
 };
 
