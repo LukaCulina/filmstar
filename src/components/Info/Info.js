@@ -15,8 +15,8 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import CloseIcon from '@mui/icons-material/Close';
 import './Info.css'
 
-export default function InfoModal({children, media_type, id, keyword}) {
-  const key = process.env.REACT_APP_API_KEY;
+export default function InfoModal({ children, media_type, id, keyword }) {
+  const key = import.meta.env.VITE_API_KEY;
   const [open, setOpen] = useState(false);
   const [content, setContent] = useState([]);
   const [video, setVideo] = useState();
@@ -26,27 +26,27 @@ export default function InfoModal({children, media_type, id, keyword}) {
   const [saved, setSaved] = useState(false);
   const { user } = UserAuth();
 
-  const fetchData = async() => {
+  const fetchData = async () => {
     const response = await fetch(
-    `https://api.themoviedb.org/3/${media_type}/${id}?api_key=${key}&language=en-US`
+      `https://api.themoviedb.org/3/${media_type}/${id}?api_key=${key}&language=en-US`
     )
     const data = await response.json();
     console.log(data);
     setContent(data);
   };
 
-  const fetchVideo = async() => {
+  const fetchVideo = async () => {
     const response = await fetch(
-    `https://api.themoviedb.org/3/${media_type}/${id}/videos?api_key=${key}&language=en-US`
+      `https://api.themoviedb.org/3/${media_type}/${id}/videos?api_key=${key}&language=en-US`
     )
     const data = await response.json();
     setVideo(data.results[0]?.key);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     fetchData();
     fetchVideo();
-  },[])
+  }, [])
 
   const style = {
     position: 'absolute',
@@ -60,7 +60,7 @@ export default function InfoModal({children, media_type, id, keyword}) {
     borderRadius: 5,
     boxShadow: 24,
     p: 4,
-    color:'white',
+    color: 'white',
   };
 
   const movieID = doc(db, 'users', `${user?.email}`);
@@ -98,7 +98,7 @@ export default function InfoModal({children, media_type, id, keyword}) {
 
   return (
     <>
-      <div onClick={handleOpen} className={keyword === "home"? "home" : "media"}>{children}</div>
+      <div onClick={handleOpen} className={keyword === "home" ? "home" : "media"}>{children}</div>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -118,23 +118,23 @@ export default function InfoModal({children, media_type, id, keyword}) {
               className='background_image landscape'
               alt={content.name || content.title}
               src={content.backdrop_path
-              ? `${img_500}/${content.backdrop_path}`
-              : unavailableLandscape}
+                ? `${img_500}/${content.backdrop_path}`
+                : unavailableLandscape}
             />
             <img
               className='background_image portrait'
               alt={content.name || content.title}
               src={content.poster_path
-              ? `${img_500}/${content.poster_path}`
-              : unavailable}
+                ? `${img_500}/${content.poster_path}`
+                : unavailable}
             />
             {content && (
               <div className='InfoModal'>
                 <p className='fav_button' onClick={setFavorite}>
                   {like ? (
-                  <FavoriteIcon className='heart' fontSize="large"/>
+                    <FavoriteIcon className='heart' fontSize="large" />
                   ) : (
-                  <FavoriteBorderIcon className='heart' fontSize="large"/>
+                    <FavoriteBorderIcon className='heart' fontSize="large" />
                   )}
                 </p>
                 <p className='close' onClick={handleClose}>
@@ -144,16 +144,16 @@ export default function InfoModal({children, media_type, id, keyword}) {
                   <img className='InfoModal_portrait'
                     alt={content.name || content.title}
                     src={content.poster_path
-                    ? `${img_500}/${content.poster_path}`
-                    : unavailable}
+                      ? `${img_500}/${content.poster_path}`
+                      : unavailable}
                   />
                 </div>
                 <div className='landscape_poster'>
                   <img className='InfoModal_landscape'
                     alt={content.name || content.title}
                     src={content.backdrop_path
-                    ? `${img_500}/${content.backdrop_path}`
-                    : unavailableLandscape}
+                      ? `${img_500}/${content.backdrop_path}`
+                      : unavailableLandscape}
                   />
                 </div>
                 <div className='InfoModal_about'>
@@ -164,17 +164,17 @@ export default function InfoModal({children, media_type, id, keyword}) {
                     <span className='tagline'>{content.tagline}</span>
                   )}
                   <span className='genre_list'>
-                      {content.genres &&
+                    {content.genres &&
                       content.genres.slice(0, 5).map((genre, i) => (
-                      <span key={i} className="InfoModal_genre">
-                      {genre.name}
-                      </span>
-                    ))}
+                        <span key={i} className="InfoModal_genre">
+                          {genre.name}
+                        </span>
+                      ))}
                   </span>
                   <span className='InfoModal_details'>
                     <p>{media_type === "movie" ? `Movie` : `TV series`}</p>
                     <div className='rating'>
-                      <GradeIcon/>
+                      <GradeIcon />
                       <p>
                         {content.vote_average && content.vote_average > 0 ? Number(content.vote_average).toFixed(1) : "Not yet rated"}
                       </p>
@@ -186,7 +186,7 @@ export default function InfoModal({children, media_type, id, keyword}) {
                     {content.overview}
                   </span>
                   <div>
-                    <Carousel id={id} media_type={media_type}/>
+                    <Carousel id={id} media_type={media_type} />
                   </div>
                   <button
                     className='trailer'
@@ -194,7 +194,7 @@ export default function InfoModal({children, media_type, id, keyword}) {
                       window.open(`https://www.youtube.com/watch?v=${video}`, '_blank');
                     }}
                   >
-                    Watch the Trailer<YouTubeIcon/>
+                    Watch the Trailer<YouTubeIcon />
                   </button>
                 </div>
               </div>)

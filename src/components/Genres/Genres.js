@@ -12,17 +12,17 @@ const Genres = ({
     type,
     setPage
 }) => {
-    const key = process.env.REACT_APP_API_KEY;
+    const key = import.meta.env.VITE_API_KEY;
 
-    const handleAdd=(genre)=>{
+    const handleAdd = (genre) => {
         setSelectedGenres([...selectedGenres, genre]);
-        setGenres(genres.filter((g)=>g.id!==genre.id))
+        setGenres(genres.filter((g) => g.id !== genre.id))
         setPage(1);
     }
 
-    const handleRemove=(genre)=>{
+    const handleRemove = (genre) => {
         setSelectedGenres(
-            selectedGenres.filter((selected)=>selected.id!==genre.id))
+            selectedGenres.filter((selected) => selected.id !== genre.id))
         setGenres([...genres, genre]);
         setPage(1);
     }
@@ -39,7 +39,7 @@ const Genres = ({
         );
     };
 
-    const fetchGenres = async() =>{
+    const fetchGenres = async () => {
         const response = await fetch(
             `https://api.themoviedb.org/3/genre/${type}/list?api_key=${key}&language=en-US`
         )
@@ -47,10 +47,10 @@ const Genres = ({
         console.log(data);
         setGenres(data.genres);
     }
-    
+
     useEffect(() => {
         fetchGenres();
-        return ()=>{
+        return () => {
             setGenres({})
         };
     }, [])
@@ -58,7 +58,7 @@ const Genres = ({
     useEffect(() => {
         const sortedSelectedGenres = sortSelectedGenres(selectedGenres);
         setSelectedGenres(sortedSelectedGenres);
-   
+
         const sortedGenres = sortGenres(genres);
         setGenres(sortedGenres);
     }, [selectedGenres, genres]);
@@ -74,7 +74,7 @@ const Genres = ({
                 onClick={() => handleAdd(genre)}
             />
         ))
-  : [];
+        : [];
 
     const selectedGenreChips = Array.isArray(selectedGenres)
         ? selectedGenres.map((genre) => (
@@ -88,32 +88,32 @@ const Genres = ({
                 onDelete={() => handleRemove(genre)}
             />
         ))
-    : [];
+        : [];
 
     const allGenreChips = [...selectedGenreChips, ...genreChips];
-  
+
     const responsive = {
         0: {
-            items:3,
+            items: 3,
         },
         512: {
-            items:5,
+            items: 5,
         },
         1024: {
-            items:10,
+            items: 10,
         },
     }
-    
-    return(
+
+    return (
         <div className="genres_carousel">
             <AliceCarousel
                 key={selectedGenres.map(g => g.id).join('-')}
                 disableDotsControls
                 disableButtonsControls
-                mouseTracking 
+                mouseTracking
                 responsive={responsive}
                 items={allGenreChips} >
-            </AliceCarousel>  
+            </AliceCarousel>
         </div>
     )
 }
