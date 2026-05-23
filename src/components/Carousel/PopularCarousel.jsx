@@ -7,6 +7,7 @@ import './Carousel.css'
 const PopularCarousel = ({ media_type }) => {
     const key = import.meta.env.VITE_API_KEY;
     const [content, setContent] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const fetchData = async () => {
         const response = await fetch(
@@ -14,11 +15,16 @@ const PopularCarousel = ({ media_type }) => {
         )
         const data = await response.json();
         setContent(data.results);
+        setLoading(false);
     };
 
     useEffect(() => {
         fetchData();
     }, [])
+
+    const skeletonItems = Array(content.length || 7).fill(null).map((_, i) => (
+        <div key={i} className="skeleton_card" />
+    ));
 
     const items = content?.map((c) => (
         <CarouselItem
@@ -53,7 +59,7 @@ const PopularCarousel = ({ media_type }) => {
                 disableDotsControls
                 disableButtonsControls
                 mouseTracking
-                items={items}>
+                items={loading ? skeletonItems : items}>
             </AliceCarousel>
         </div>
     );
