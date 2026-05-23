@@ -7,7 +7,9 @@ const AuthContext = createContext()
 
 export function AuthContextProvider({ children }) {
     const [user, setUser] = useState({});
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(
+        localStorage.getItem('isLoggedIn') === null
+    );
 
     async function signUp(email, password, displayName) {
         const userLogin = await createUserWithEmailAndPassword(auth, email, password);
@@ -34,6 +36,7 @@ export function AuthContextProvider({ children }) {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
             setLoading(false);
+            localStorage.setItem('isLoggedIn', !!currentUser);
         });
         return () => unsubscribe();
     }, []);

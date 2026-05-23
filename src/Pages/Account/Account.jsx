@@ -13,7 +13,7 @@ const Account = () => {
     JSON.parse(localStorage.getItem('favorites')) || []
   );
 
-  const { user, loading } = UserAuth();
+  const { user } = UserAuth();
 
   useEffect(() => {
     if (!user?.email) return;
@@ -30,7 +30,7 @@ const Account = () => {
     });
 
     return () => unsubscribe();
-  }, [user?.email, loading]);
+  }, [user?.email]);
 
   const movieRef = doc(db, 'users', `${user?.email}`)
   const deleteContent = async (ID) => {
