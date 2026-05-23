@@ -8,7 +8,7 @@ import './Account.css'
 const Account = () => {
   const [displayName, setDisplayName] = useState('');
   const [movies, setMovies] = useState([]);
-  const { user } = UserAuth();
+  const { user, loading } = UserAuth();
 
   useEffect(() => {
     if (!user?.email) return;
@@ -21,7 +21,7 @@ const Account = () => {
     });
 
     return () => unsubscribe();
-  }, [user?.email]);
+  }, [user?.email, loading]);
 
   const movieRef = doc(db, 'users', `${user?.email}`)
   const deleteContent = async (ID) => {
