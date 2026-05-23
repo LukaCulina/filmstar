@@ -20,7 +20,6 @@ const Series = () => {
             `https://api.themoviedb.org/3/discover/tv?api_key=${key}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&with_watch_monetization_types=flatrate&page=${page}&with_genres=${genreforURL}`
         );
         const data = await response.json();
-        console.log(data)
         setContent(data.results);
         setnumOfPages(500);
     };
@@ -42,8 +41,6 @@ const Series = () => {
             `https://api.themoviedb.org/3/search/tv?api_key=${key}&language=en-US&query=${searchText}&page=${page}&include_adult=false`
         );
         const data = await response.json();
-        console.log(data)
-        console.log(response)
         setContent(data.results)
         setnumOfPages(data.total_pages);
     };

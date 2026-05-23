@@ -14,7 +14,6 @@ const Trending = () => {
             `https://api.themoviedb.org/3/trending/all/week?api_key=${key}&page=${page}`
         )
         const data = await response.json();
-        console.log(data)
         setContent(data.results);
     };
 
@@ -26,8 +25,6 @@ const Trending = () => {
             `https://api.themoviedb.org/3/search/multi?api_key=9d226837169e45a79056a5040bd49c77&language=en-US&query=${searchText}&page=${page}&include_adult=false`
         )
         const data = await response.json();
-        console.log(data)
-        console.log(response)
         data.length !== 0 ? setContent(data.results) : setContent(0)
         setnumOfPages(data.total_pages);
     };

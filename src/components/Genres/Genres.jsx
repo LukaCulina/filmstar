@@ -44,7 +44,6 @@ const Genres = ({
             `https://api.themoviedb.org/3/genre/${type}/list?api_key=${key}&language=en-US`
         )
         const data = await response.json();
-        console.log(data);
         setGenres(data.genres);
     }
 

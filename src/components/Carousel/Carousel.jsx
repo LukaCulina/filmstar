@@ -16,7 +16,6 @@ const Carousel = ({ id, media_type }) => {
 
     )
     const data = await response.json();
-    console.log(data);
     setCredits(data.cast);
   };
 
