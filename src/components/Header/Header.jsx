@@ -22,7 +22,9 @@ const Header = () => {
         setActiveButton(buttonId);
     };
 
-    if (loading) return null;
+    const isLoggedIn = loading
+        ? localStorage.getItem('isLoggedIn') === 'true'
+        : !!user?.email;
 
     return (
         <span onClick={() => window.scroll(0, 0)} className='header'>
@@ -51,7 +53,7 @@ const Header = () => {
                     </button>
                 </Link>
             </div>
-            {user?.email ? (
+            {isLoggedIn ? (
                 <div className="buttons">
                     <Link to='/account' onClick={() => handleButtonClick(5)}>
                         <button className={`auth_button ${activeButton === 5 ? 'active' : ''}`}>Account</button>
