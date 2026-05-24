@@ -8,7 +8,7 @@ const Signup = () => {
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { user, signUp } = UserAuth();
+  const { user, signUp, googleLogin } = UserAuth();
   const [error, setError] = useState('')
   const navigate = useNavigate()
 
@@ -26,7 +26,7 @@ const Signup = () => {
   return (
     <>
       <div className='form_container'>
-      {error ? <p className='error'>{error}</p> : null}
+        {error ? <p className='error'>{error}</p> : null}
         <form
           onSubmit={handleSubmit}
           className='form'
@@ -58,6 +58,9 @@ const Signup = () => {
           />
           <button className='button'>
             Sign up
+          </button>
+          <button type="button" className='button' onClick={googleLogin}>
+            Sign in with Google
           </button>
           <p>
             <span style={{ color: '#718096' }}>
