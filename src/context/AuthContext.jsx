@@ -7,9 +7,7 @@ const AuthContext = createContext()
 
 export function AuthContextProvider({ children }) {
     const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(
-        localStorage.getItem('isLoggedIn') === null
-    );
+    const [loading, setLoading] = useState(true);
 
     async function signUp(email, password, displayName) {
         const userLogin = await createUserWithEmailAndPassword(auth, email, password);
