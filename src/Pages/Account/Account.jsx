@@ -6,14 +6,16 @@ import CloseIcon from '@mui/icons-material/Close';
 import './Account.css'
 
 const Account = () => {
+  const { user } = UserAuth();
+
   const [displayName, setDisplayName] = useState(
-    localStorage.getItem('displayName') || ''
+    user?.displayName || localStorage.getItem('displayName') || ''
   );
   const [movies, setMovies] = useState(
     JSON.parse(localStorage.getItem('favorites')) || []
   );
 
-  const { user } = UserAuth();
+
 
   useEffect(() => {
     if (!user?.email) return;
@@ -23,7 +25,9 @@ const Account = () => {
     const unsubscribe = onSnapshot(ref, (doc) => {
       const name = doc.data()?.displayName;
       const favs = doc.data()?.Favorites ?? [];
-      setDisplayName(name);
+
+      if (name) setDisplayName(name);
+
       setMovies(favs);
       localStorage.setItem('displayName', name);
       localStorage.setItem('favorites', JSON.stringify(favs));
@@ -46,7 +50,7 @@ const Account = () => {
 
   return (
     <>
-      <h1 className="my-favourites heading">Hello, {displayName}</h1>
+      <h1 className="my-favourites heading">Hello, {displayName || user?.displayName}</h1>
       <h2 className="my-favourites list">My Favorites</h2>
       <div className="slider-container">
         <div id="slider" className="slider">
