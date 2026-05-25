@@ -1,9 +1,9 @@
-.auth_title{
+.auth_title {
     margin: 0 auto;
     padding-bottom: 15px;
     font-size: 2.5rem;
 }
-.img{
+.img {
     display: none; 
     position: absolute; 
     width: 100%; 
@@ -11,12 +11,12 @@
     object-fit: cover; 
 
 }
-.form_container{
+.form_container {
     height: 100vh;
     display: flex;
     align-items: center;
 }
-.form{
+.form {
     width: 35%;
     display: flex;
     flex-direction: column;
@@ -29,12 +29,15 @@
     -ms-border-radius: 20px;
     -o-border-radius: 20px;
 }
-.error{
+.error {
     padding: 0.75rem; 
     background-color: #EF4444; 
-    margin: 0.5rem 0; 
+    margin: 0.5rem 0 1.5rem 0;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
 }
-.input{
+.input {
     padding: 1rem;
     font-size: 15px;
     margin: 0.5rem 0;
@@ -48,11 +51,11 @@
     color: white;
 }
 
-.button{
+.button {
     font-size: 18px;
     background-color: #0c87e3;
     padding: 0.75rem 0;
-    margin: 1.5rem 0;
+    margin: 1rem 0;
     border: 1px solid black;
     border-radius: 20px;
     font-weight: bold;
@@ -64,12 +67,12 @@
     cursor: pointer;
 }
 
-@media(max-width:480px){
+@media(max-width:480px) {
     .form{
         width: 70%;
     }
 }
-@media(min-width:481px) and (max-width:768px){
+@media(min-width:481px) and (max-width:768px) {
     .form{
         width: 50%;
     }

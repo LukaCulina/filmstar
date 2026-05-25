@@ -28,7 +28,6 @@ const Login = () => {
 
   return (
     <div className='form_container'>
-      {error ? <p className='error'>{error}</p> : null}
       <form onSubmit={handleSubmit} className='form'>
         <h1 className='auth_title'>Login</h1>
         <input
@@ -54,6 +53,7 @@ const Login = () => {
           <span style={{ color: '#718096' }}>New to FilmStar?</span>{' '}
           <Link to='/signup'>Sign up</Link>
         </p>
+        {error ? <p className='error'>{error}</p> : null}
       </form>
     </div>
   );

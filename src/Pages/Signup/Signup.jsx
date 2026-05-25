@@ -28,7 +28,6 @@ const Signup = () => {
   return (
     <>
       <div className='form_container'>
-        {error ? <p className='error'>{error}</p> : null}
         <form
           onSubmit={handleSubmit}
           className='form'
@@ -70,6 +69,7 @@ const Signup = () => {
             </span>{' '}
             <Link to='/login'>Log in</Link>
           </p>
+          {error ? <p className='error'>{error}</p> : null}
         </form>
       </div>
     </>
