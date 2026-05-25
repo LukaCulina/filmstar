@@ -1,8 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserAuth } from '../../context/AuthContext';
 import '../Login/Login.css';
-
 
 const Signup = () => {
   const [displayName, setDisplayName] = useState('');
@@ -16,12 +15,15 @@ const Signup = () => {
     e.preventDefault();
     try {
       await signUp(email, password, displayName);
-      navigate('/')
     } catch (error) {
       console.log(error);
       setError(error.message)
     }
   };
+
+  useEffect(() => {
+    if (user) navigate('/');
+  }, [user]);
 
   return (
     <>

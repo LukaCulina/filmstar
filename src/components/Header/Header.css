@@ -47,30 +47,30 @@
 .logout{
     margin:0;
 }
-.active, .nav_button:hover, .auth_button:hover{
+.active, .nav_button:hover, .auth_button:hover {
     border-bottom: 3px solid #27a3ff;
     padding-bottom: 3px;
 }
-.buttons{
+.buttons {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 10px 0;
 }
-.hamburger_icon{
+.hamburger_icon {
     display: none;
     position: absolute;
     top: 13px;
     left: 15px;
     cursor: pointer;
 }
-.hamburger_navbar{
+.hamburger_navbar {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 20%;
 }
-.hamburger_buttons{
+.hamburger_buttons {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -80,7 +80,7 @@
     right: 0; 
 }
 
-@media(max-width:768px){
+@media(max-width:768px) {
     .hamburger_icon{
         display: block;
     }
@@ -98,7 +98,7 @@
     }
 }
 
-@media(min-width:1025px){
+@media(min-width:1025px) {
     .nav_button{
         font-size: 2rem;
     }

@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { UserAuth } from "../../context/AuthContext";
 import "./Header.css";
 import HamburgerMenu from './HamburgerMenu';
@@ -7,6 +6,7 @@ import HamburgerMenu from './HamburgerMenu';
 const Header = () => {
     const { user, logout, loading } = UserAuth();
     const navigate = useNavigate();
+    const { pathname } = useLocation();
 
     const handleLogout = async () => {
         try {
@@ -16,11 +16,6 @@ const Header = () => {
             console.log(error);
         }
     };
-    const [activeButton, setActiveButton] = useState(null);
-
-    const handleButtonClick = (buttonId) => {
-        setActiveButton(buttonId);
-    };
 
     const isLoggedIn = loading
         ? localStorage.getItem('isLoggedIn') === 'true'
@@ -29,63 +24,59 @@ const Header = () => {
     return (
         <span onClick={() => window.scroll(0, 0)} className='header'>
             <span className="header_title">
-                <Link to='/' onClick={() => handleButtonClick(1)}>
+                <Link to='/'>
                     FilmStar
                 </Link>
             </span>
             <div className="navbar">
                 <Link to='/trending'>
-                    <button className={`nav_button ${activeButton === 2 ? 'active' : ''}`}
-                        onClick={() => handleButtonClick(2)}>
+                    <button className={`nav_button ${pathname === '/trending' ? 'active' : ''}`}>
                         Trending
                     </button>
                 </Link>
                 <Link to='/movies'>
-                    <button className={`nav_button ${activeButton === 3 ? 'active' : ''}`}
-                        onClick={() => handleButtonClick(3)}>
+                    <button className={`nav_button ${pathname === '/movies' ? 'active' : ''}`}>
                         Movies
                     </button>
                 </Link>
                 <Link to='/series'>
-                    <button className={`nav_button ${activeButton === 4 ? 'active' : ''}`}
-                        onClick={() => handleButtonClick(4)}>
+                    <button className={`nav_button ${pathname === '/series' ? 'active' : ''}`}>
                         Series
                     </button>
                 </Link>
             </div>
             {isLoggedIn ? (
-                <div className="buttons">
-                    <Link to='/account' onClick={() => handleButtonClick(5)}>
-                        <button className={`auth_button ${activeButton === 5 ? 'active' : ''}`}>Account</button>
-                    </Link>
-                    <button className='auth_button'
-                        onClick={() => {
-                            handleButtonClick(1);
-                            handleLogout();
-                        }}>
+                <div className="buttons" key="user-buttons">
+                    <button
+                        className={`auth_button ${pathname === '/account' ? 'active' : ''}`}
+                        onClick={() => navigate('/account')}
+                    >
+                        Account
+                    </button>
+                    <button className='auth_button' onClick={handleLogout}>
                         Logout
                     </button>
                 </div>
             ) : (
-                <div className="buttons">
-                    <Link to='/login' onClick={() => handleButtonClick(5)}>
-                        <button className={`auth_button ${activeButton === 5 ? 'active' : ''}`}>
-                            Login
-                        </button>
-                    </Link>
-                    <Link to='/signup' onClick={() => handleButtonClick(6)}>
-                        <button className={`auth_button ${activeButton === 6 ? 'active' : ''}`}>
-                            Signup
-                        </button>
-                    </Link>
+                <div className="buttons" key="guest-buttons">
+                    <button
+                        className={`auth_button ${pathname === '/login' ? 'active' : ''}`}
+                        onClick={() => navigate('/login')}
+                    >
+                        Login
+                    </button>
+                    <button
+                        className={`auth_button ${pathname === '/signup' ? 'active' : ''}`}
+                        onClick={() => navigate('/signup')}
+                    >
+                        Signup
+                    </button>
                 </div>
             )}
             <HamburgerMenu
-                activeButton={activeButton}
-                handleButtonClick={handleButtonClick}
+                pathname={pathname}
                 handleLogout={handleLogout}
             >
-
             </HamburgerMenu>
         </span>
     )

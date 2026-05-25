@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserAuth } from '../../context/AuthContext';
 import './Login.css';
@@ -16,12 +16,15 @@ const Login = () => {
     setError('')
     try {
       await login(email, password)
-      navigate('/')
     } catch (error) {
       console.log(error);
       setError(error.message)
     }
   };
+
+  useEffect(() => {
+    if (user) navigate('/');
+  }, [user]);
 
   return (
     <div className='form_container'>
