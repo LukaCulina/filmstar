@@ -17,6 +17,12 @@ export function AuthContextProvider({ children }) {
         await updateProfile(user, {
             displayName: displayName
         });
+
+        const userRef = doc(db, 'users', user.email);
+        await setDoc(userRef, {
+            displayName: displayName,
+            Favorites: []
+        });
     }
 
     const googleLogin = async () => {
