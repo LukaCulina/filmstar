@@ -27,7 +27,7 @@
     scrollbar-width: none;
 }
 
-.fav_button {
+.fav-button {
     position: absolute;
     top: 0;
     right: 15px;
@@ -39,7 +39,7 @@
     color: #D1D5DB;
 }
 
-.close {
+.close-button {
     position: absolute;
     top: 0;
     left: 15px;
@@ -64,11 +64,12 @@
     padding: 10px;
     display: flex;
     flex-direction: column;
+    gap: 10px;
 }
 
 .InfoModal_title {
     text-align: center;
-    margin: 10px;
+    margin-bottom: 10px;
 }
 
 .tagline {
@@ -92,7 +93,6 @@
 
 .InfoModal_details {
     display: flex;
-    flex-direction: row;
     justify-content: space-evenly;
 }
 
@@ -113,7 +113,7 @@
     display: none;
 }
 
-.trailer {
+.trailer-button {
     font-size: 1rem;
     color: white;
     background-color: #0c87e3;
@@ -121,7 +121,6 @@
     justify-content: center;
     align-items: center;
     padding: 10px 0;
-    margin-top: 10px;
     cursor: pointer;
     border: 1px hidden black;
     border-radius: 20px;

@@ -130,16 +130,18 @@ export default function InfoModal({ children, media_type, id, keyword, item }) {
             />
             {content && (
               <div className='InfoModal'>
-                <p className='fav_button' onClick={setFavorite}>
-                  {like ? (
-                    <FavoriteIcon className='heart' fontSize="large" />
-                  ) : (
-                    <FavoriteBorderIcon className='heart' fontSize="large" />
-                  )}
-                </p>
-                <p className='close' onClick={handleClose}>
-                  <CloseIcon fontSize='large'></CloseIcon>
-                </p>
+                <div>
+                  <p className='fav-button' onClick={setFavorite}>
+                    {like ? (
+                      <FavoriteIcon className='heart' fontSize="large" />
+                    ) : (
+                      <FavoriteBorderIcon className='heart' fontSize="large" />
+                    )}
+                  </p>
+                  <p className='close-button' onClick={handleClose}>
+                    <CloseIcon fontSize='large'></CloseIcon>
+                  </p>
+                </div>
                 <div className='mini_poster'>
                   <img className='InfoModal_portrait'
                     alt={content.name || content.title}
@@ -189,7 +191,7 @@ export default function InfoModal({ children, media_type, id, keyword, item }) {
                     <Carousel id={id} media_type={media_type} />
                   </div>
                   <button
-                    className='trailer'
+                    className='trailer-button'
                     onClick={() => {
                       window.open(`https://www.youtube.com/watch?v=${video}`, '_blank');
                     }}
