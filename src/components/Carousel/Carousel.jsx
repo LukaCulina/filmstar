@@ -1,6 +1,6 @@
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
-import { img_300, noPicture } from '../../config/config';
+import { img_carousel, noPicture } from '../../config/config';
 import { useEffect, useState } from "react";
 import './Carousel.css'
 
@@ -35,8 +35,9 @@ const Carousel = ({ id, media_type }) => {
       style={{ textDecoration: 'none', color: 'inherit' }}
     >
       <img
-        src={c.profile_path ? `${img_300}/${c.profile_path}` : noPicture}
+        src={c.profile_path ? `${img_carousel}/${c.profile_path}` : noPicture}
         alt={c?.name}
+        loading="lazy"
         onDragStart={handleDragStart}
         className='carouselItem_img'
       />
