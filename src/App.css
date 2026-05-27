@@ -10,9 +10,11 @@
 }
 
 .trending {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  justify-content: center;
+  padding: 20px 0;
 }
 
 .search_bar {
@@ -27,7 +29,7 @@
   height: 3vmax;
   font-size: medium;
   border-radius: 90px;
-  padding: 5px;
+  padding: 5px 10px;
   margin: 0.5%;
 }
 
@@ -58,5 +60,17 @@ div {
 @media(min-width:1025px) {
   .search {
     height: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .trending {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .trending {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
