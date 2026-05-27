@@ -52,7 +52,7 @@ export default function Home() {
           fetchpriority="high"
           loading="eager"
           src={banner.backdrop_path
-            ? `${img_backdrop}/${banner.backdrop_path}`
+            ? `${img_backdrop}${banner.backdrop_path}`
             : unavailableLandscape}
           alt={banner.title}
         />
