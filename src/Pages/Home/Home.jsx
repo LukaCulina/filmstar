@@ -7,14 +7,19 @@ import './Home.css'
 
 export default function Home() {
   const key = import.meta.env.VITE_API_KEY;
-  const [banner, setBanner] = useState([]);
+  const [banner, setBanner] = useState(() => {
+    const saved = JSON.parse(localStorage.getItem('banner'));
+    const today = new Date().toISOString().slice(0, 10);
+    if (saved && saved.date === today) {
+      return saved.movie;
+    }
+    return {};
+  });
 
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem('banner'));
-    const today = new Date().toISOString().slice(0, 10); // npr. "2025-05-15"
-    if (saved && saved.date === today) {
-      setBanner(saved.movie);
-    } else {
+    const today = new Date().toISOString().slice(0, 10);
+    if (!saved || !saved.date === today) {
       fetchContent(today);
     }
   }, []);
@@ -44,6 +49,8 @@ export default function Home() {
       <div className='banner_container'>
         <img
           className="banner_image"
+          fetchpriority="high"
+          loading="eager"
           src={banner.backdrop_path
             ? `${img_backdrop}/${banner.backdrop_path}`
             : unavailableLandscape}

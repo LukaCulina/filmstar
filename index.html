@@ -10,6 +10,24 @@
     <link rel="manifest" href="/manifest.json" />
     <link rel="apple-touch-icon" href="/logo192.png" />
     <title>FilmStar</title>
+    <script>
+    (function() {
+      try {
+        var saved = JSON.parse(localStorage.getItem('banner'));
+        var today = new Date().toISOString().slice(0, 10);
+        if (saved && saved.date === today && saved.movie && saved.movie.backdrop_path) {
+          var imgUrl = "https://image.tmdb.org/t/p/w1280" + saved.movie.backdrop_path;
+          
+          var link = document.createElement('link');
+          link.rel = 'preload';
+          link.as = 'image';
+          link.href = imgUrl;
+          link.fetchPriority = 'high';
+          document.head.appendChild(link);
+        }
+      } catch(e) {}
+    })();
+  </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
