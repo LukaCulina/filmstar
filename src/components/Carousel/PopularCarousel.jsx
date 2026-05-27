@@ -38,11 +38,14 @@ const PopularCarousel = ({ media_type }) => {
         0: {
             items: 3,
         },
-        512: {
+        480: {
+            items: 4,
+        },
+        768: {
             items: 5,
         },
         1024: {
-            items: 7,
+            items: 6,
         },
     }
 
