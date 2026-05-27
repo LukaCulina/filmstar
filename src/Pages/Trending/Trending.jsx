@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import DisplayItem from "../../components/DisplayItem/DisplayItem";
 import CustomPagination from "../../components/Pagination/CustomPagination";
+import SearchBar from "../../components/SearchBar/SearchBar";
 
 const Trending = () => {
     const key = import.meta.env.VITE_API_KEY;
@@ -18,38 +19,38 @@ const Trending = () => {
     };
 
     useEffect(() => {
-        fetchTrending();
-    }, [page])
+        if (searchText.trim()) {
+            fetchSearch();
+        } else {
+            fetchTrending();
+        }
+    }, [page, searchText]);
+
     const fetchSearch = async () => {
+        if (!searchText.trim()) {
+            fetchTrending();
+            return;
+        }
         const response = await fetch(
-            `https://api.themoviedb.org/3/search/multi?api_key=9d226837169e45a79056a5040bd49c77&language=en-US&query=${searchText}&page=${page}&include_adult=false`
-        )
+            `https://api.themoviedb.org/3/search/multi?api_key=${key}&language=en-US&query=${searchText}&page=${page}&include_adult=false`
+        );
         const data = await response.json();
         data.length !== 0 ? setContent(data.results) : setContent(0)
         setnumOfPages(data.total_pages);
     };
-    const ref = useRef(null);
-    const EnterKeyPress = (event) => {
-        if (event.key === "Enter") {
-            fetchSearch(searchText);
-            ref.current.value = '';
-        }
+
+    const handleSearch = () => {
+        setPage(1); // reset to first page on new search
+        fetchTrending();
     };
+
     return (
         <div>
-            <div className="search_bar">
-                <input
-                    type="text"
-                    ref={ref}
-                    placeholder="Search..."
-                    className="search"
-                    onChange={(e) => {
-                        setSearchText(e.target.value);
-                    }
-                    }
-                    onKeyDown={EnterKeyPress}
-                />
-            </div>
+            <SearchBar
+                searchText={searchText}
+                setSearchText={setSearchText}
+                onSearch={handleSearch}
+            />
             <div className="trending">
                 {content && content.map((c) => (
                     <DisplayItem key={c.id} c={c} media_type={c.media_type} />

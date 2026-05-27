@@ -1,4 +1,4 @@
-const SearchBar = ( { searchText, setSearchText, onSearch }) => {
+const SearchBar = ({ searchText, setSearchText, onSearch }) => {
 
     const EnterKeyPress = (event) => {
         if (event.key === "Enter") {
@@ -8,9 +8,12 @@ const SearchBar = ( { searchText, setSearchText, onSearch }) => {
 
     return (
         <div className="search_bar">
-            <input 
-                type="text" 
-                placeholder="Search..." 
+            <input
+                id="searchInput"
+                name="search"
+                type="text"
+                aria-label="Search movies and series"
+                placeholder="Search..."
                 className="search"
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
