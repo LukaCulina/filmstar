@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import PopularCarousel from '../../components/Carousel/PopularCarousel';
 import TopRatedCarousel from '../../components/Carousel/TopRatedCarousel';
-import { img_500, unavailableLandscape } from "../../config/config";
+import { img_backdrop, unavailableLandscape } from "../../config/config";
 import HomeGenres from '../../components/HomeGenres/HomeGenres';
 import './Home.css'
 
@@ -45,7 +45,7 @@ export default function Home() {
         <img
           className="banner_image"
           src={banner.backdrop_path
-            ? `${img_500}/${banner.backdrop_path}`
+            ? `${img_backdrop}/${banner.backdrop_path}`
             : unavailableLandscape}
           alt={banner.title}
         />

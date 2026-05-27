@@ -5,7 +5,7 @@ import './DisplayItem.css'
 
 const DisplayItem = ({c, media_type}) => {
     return (
-        <InfoModal id={c.id} media_type={media_type} c={c}>
+        <InfoModal id={c.id} media_type={media_type} item={c}>
             <Badge
                 badgeContent={
                     c.vote_average && c.vote_average > 0

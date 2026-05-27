@@ -24,7 +24,7 @@ const CarouselItem = ({ media_type, c }) => {
   };
 
   return (
-    <InfoModal id={c.id} media_type={media_type} keyword="home" c={c}>
+    <InfoModal id={c.id} media_type={media_type} keyword="home" item={c}>
       <div
         className='carouselItem'
         onMouseDown={handleMouseDown}

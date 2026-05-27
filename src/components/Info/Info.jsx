@@ -3,7 +3,7 @@ import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
-import { img_500, unavailable, unavailableLandscape } from '../../config/config';
+import { img_poster, img_backdrop, unavailable, unavailableLandscape } from '../../config/config';
 import Carousel from '../Carousel/Carousel';
 import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
@@ -15,10 +15,10 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import CloseIcon from '@mui/icons-material/Close';
 import './Info.css'
 
-export default function InfoModal({ children, media_type, id, keyword }) {
+export default function InfoModal({ children, media_type, id, keyword, item }) {
   const key = import.meta.env.VITE_API_KEY;
   const [open, setOpen] = useState(false);
-  const [content, setContent] = useState([]);
+  const [content, setContent] = useState(item || {});
   const [video, setVideo] = useState();
   const handleClose = () => setOpen(false);
   const [like, setLike] = useState(false);
@@ -117,14 +117,14 @@ export default function InfoModal({ children, media_type, id, keyword }) {
               className='background_image landscape'
               alt={content.name || content.title}
               src={content.backdrop_path
-                ? `${img_500}/${content.backdrop_path}`
+                ? `${img_backdrop}/${content.backdrop_path}`
                 : unavailableLandscape}
             />
             <img
               className='background_image portrait'
               alt={content.name || content.title}
               src={content.poster_path
-                ? `${img_500}/${content.poster_path}`
+                ? `${img_poster}/${content.poster_path}`
                 : unavailable}
             />
             {content && (
@@ -143,7 +143,7 @@ export default function InfoModal({ children, media_type, id, keyword }) {
                   <img className='InfoModal_portrait'
                     alt={content.name || content.title}
                     src={content.poster_path
-                      ? `${img_500}/${content.poster_path}`
+                      ? `${img_poster}/${content.poster_path}`
                       : unavailable}
                   />
                 </div>
@@ -151,7 +151,7 @@ export default function InfoModal({ children, media_type, id, keyword }) {
                   <img className='InfoModal_landscape'
                     alt={content.name || content.title}
                     src={content.backdrop_path
-                      ? `${img_500}/${content.backdrop_path}`
+                      ? `${img_backdrop}/${content.backdrop_path}`
                       : unavailableLandscape}
                   />
                 </div>
