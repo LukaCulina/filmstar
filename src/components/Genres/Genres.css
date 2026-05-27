@@ -1,14 +1,17 @@
 .genres_carousel {
     padding: 10px 0;
 }
+
 .genres_carousel .alice-carousel__stage-item {
-    width:auto !important;
+    width: auto !important;
 }
+
 .css-wjsjww-MuiChip-label {
     color: white;
 }
+
 @media (min-width:1025px) {
-    .genres_carousel .MuiButtonBase-root{
+    .genres_carousel .MuiButtonBase-root {
         font-size: 1.3rem !important;
     }
 }
